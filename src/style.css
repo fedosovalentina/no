@@ -68,8 +68,6 @@ body {
 /* ── Layouts (inside card, phrase always centered) ── */
 
 .no-card.layout-center,
-.no-card.layout-corner-tl,
-.no-card.layout-corner-br,
 .no-card.layout-diagonal,
 .no-card.layout-stack,
 .no-card.layout-split,

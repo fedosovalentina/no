@@ -1,8 +1,3 @@
-interface Env {
-  ASSETS: Fetcher;
-  COUNTER?: KVNamespace;
-}
-
 function todayMoscow(): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Moscow" }).format(new Date());
 }

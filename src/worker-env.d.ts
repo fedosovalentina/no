@@ -6,3 +6,8 @@ interface KVNamespace {
 interface Fetcher {
   fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
 }
+
+interface Env {
+  ASSETS: Fetcher;
+  COUNTER?: KVNamespace;
+}

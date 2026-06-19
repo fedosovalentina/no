@@ -33,7 +33,7 @@ export interface Theme {
   /** Extra decorative font for subtitles */
   accentFont?: string;
   accentWeights?: string;
-  layout: "center" | "corner-tl" | "corner-br" | "diagonal" | "stack" | "split" | "marquee-wrap";
+  layout: "center" | "diagonal" | "stack" | "split" | "marquee-wrap";
   animation: AnimationId;
   css: Record<string, string>;
   /** Optional HTML decoration */
@@ -107,7 +107,7 @@ export const themes: Theme[] = [
     name: "Sticky Note",
     font: "Caveat",
     fontWeights: "700",
-    layout: "corner-tl",
+    layout: "center",
     animation: "swing",
     decoration: "none",
     className: "theme-sticky",
@@ -126,7 +126,7 @@ export const themes: Theme[] = [
     name: "Terminal",
     font: "JetBrains Mono",
     fontWeights: "700",
-    layout: "corner-br",
+    layout: "center",
     animation: "typewriter",
     decoration: "scanlines",
     css: {
@@ -373,7 +373,7 @@ export const themes: Theme[] = [
     name: "Crayon",
     font: "Gochi Hand",
     fontWeights: "400",
-    layout: "corner-br",
+    layout: "center",
     animation: "scatter",
     decoration: "none",
     className: "theme-crayon",
@@ -430,7 +430,7 @@ export const themes: Theme[] = [
     name: "Typewriter",
     font: "Special Elite",
     fontWeights: "400",
-    layout: "corner-tl",
+    layout: "center",
     animation: "typewriter",
     decoration: "none",
     className: "theme-typewriter",

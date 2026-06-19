@@ -1,49 +1,21 @@
 # нет
 
-Сайт, который каждый раз говорит «нет» — по-новому.
+https://www.to4no.net — обнови страницу (или пробел): новая фраза «нет», новый дизайн. Смысл один.
 
-Обнови страницу (или нажми пробел) — новая фраза, новый шрифт, новый дизайн, новая анимация. Смысл один.
-
-**Прод:** https://www.to4no.net — Cloudflare Workers (не Pages, не GitHub Pages).
-
-## Запуск локально
+## Локально
 
 ```bash
 npm install
-npm run dev          # только фронт (счётчик покажет «—»)
-npm run dev:worker   # фронт + /api/declined через wrangler (нужен KV binding)
+npm run dev          # фронт
+npm run dev:worker   # фронт + API (нужен KV binding COUNTER)
 ```
 
-## Сборка и деплой
+## Деплой
 
-```bash
-npm run build
-npm run deploy       # wrangler deploy (на проде делает Cloudflare Builds)
-```
+Push в `main` → Cloudflare Workers Builds (`npm run build` + `npm run deploy`).
 
-Деплой на push в `main` — через **Cloudflare Workers Builds** (GitHub → Cloudflare).
-Build command: `npm run build`, deploy command: `npm run deploy`.
+Счётчик: `src/worker.ts` → KV `COUNTER` в Dashboard.
 
-### Счётчик «Отказано сегодня»
+## Стек
 
-Worker `src/worker.ts` + KV binding `COUNTER` в Cloudflare Dashboard.
-
-## Архитектура
-
-```
-GitHub (main)
-    → Cloudflare Workers Builds
-        → npm run build  → dist/ (статика Vite)
-        → npm run deploy → wrangler (Worker + assets)
-
-Worker src/worker.ts
-    → POST /api/declined  → KV (глобальный счётчик)
-    → всё остальное       → dist/ (HTML, CSS, JS)
-```
-
-## Что внутри
-
-- **200+ фраз** — от «нет» до «отказано GDPR»
-- **30 визуальных тем** — brutalist, neon, soviet, terminal, comic, gothic, vaporwave…
-- **25 анимаций** — glitch, typewriter, stamp, bounce, marquee…
-- **Google Fonts** — каждая тема подгружает свой шрифт
+Vite · TypeScript · Cloudflare Workers · KV · 200+ фраз · 30 тем · Google Fonts
