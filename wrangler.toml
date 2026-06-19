@@ -1,0 +1,12 @@
+name = "no"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "dist"
+
+# После деплоя на Cloudflare Pages:
+# 1. Workers & Pages → KV → Create namespace "no-counter"
+# 2. Pages → ваш проект → Settings → Functions → KV bindings
+#    Variable: COUNTER → namespace no-counter
+# 3. Redeploy
+[[kv_namespaces]]
+binding = "COUNTER"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
