@@ -1,7 +1,13 @@
+import { createDeckPicker } from "./shuffle-pick";
+
 export interface Phrase {
   text: string;
   /** Optional subtitle or context line */
   sub?: string;
+}
+
+function phraseKey(phrase: Phrase): string {
+  return `${phrase.text}\0${phrase.sub ?? ""}`;
 }
 
 export const phrases: Phrase[] = [
@@ -151,6 +157,8 @@ export const phrases: Phrase[] = [
   { text: "418", sub: "i'm a teapot, not a yes" },
 ];
 
+const pickUniquePhrase = createDeckPicker(phrases, phraseKey, "no:phrase-deck");
+
 export function pickPhrase(): Phrase {
-  return phrases[Math.floor(Math.random() * phrases.length)];
+  return pickUniquePhrase();
 }

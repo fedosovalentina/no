@@ -1,3 +1,5 @@
+import { createDeckPicker } from "./shuffle-pick";
+
 export type AnimationId =
   | "none"
   | "fade"
@@ -613,8 +615,10 @@ export const themes: Theme[] = [
   },
 ];
 
+const pickUniqueTheme = createDeckPicker(themes, (theme) => theme.id, "no:theme-deck");
+
 export function pickTheme(): Theme {
-  return themes[Math.floor(Math.random() * themes.length)];
+  return pickUniqueTheme();
 }
 
 export function loadFonts(theme: Theme): void {
