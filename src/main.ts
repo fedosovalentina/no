@@ -1,6 +1,7 @@
 import "./style.css";
 import { pickPhrase, type Phrase } from "./phrases";
 import { pickTheme, loadFonts, type Theme, type AnimationId } from "./themes";
+import { pickRefreshLabel } from "./refresh-labels";
 import { recordDecline, showDeclineCount } from "./counter";
 
 const app = document.getElementById("app")!;
@@ -8,7 +9,6 @@ const app = document.getElementById("app")!;
 const refreshBtn = document.createElement("button");
 refreshBtn.type = "button";
 refreshBtn.className = "refresh-btn";
-refreshBtn.textContent = "обновить";
 refreshBtn.addEventListener("click", () => render());
 
 function applyThemeVars(theme: Theme): void {
@@ -150,6 +150,9 @@ function render(): void {
     stack.appendChild(card);
     stack.appendChild(refreshBtn);
   }
+
+  refreshBtn.textContent = pickRefreshLabel();
+  refreshBtn.setAttribute("aria-label", "Попробовать ещё раз — новая фраза и дизайн");
 
   void recordDecline().then(showDeclineCount);
 }

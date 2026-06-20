@@ -583,6 +583,7 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: clamp(0.75rem, 2.5vw, 0.875rem);
   line-height: 1.4;
+  max-width: min(92vw, 22rem);
   color: rgba(255, 255, 255, 0.42);
   text-decoration: underline;
   text-underline-offset: 0.22em;
