@@ -139,7 +139,9 @@ body {
 }
 
 .phrase-main.text-glow {
-  filter: drop-shadow(0 0 4px var(--fg));
+  filter: none;
+  -webkit-text-stroke: 0.75px rgba(255, 255, 255, 0.2);
+  paint-order: stroke fill;
 }
 
 .phrase-sub {
