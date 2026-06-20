@@ -5,6 +5,12 @@ import { recordDecline, showDeclineCount } from "./counter";
 
 const app = document.getElementById("app")!;
 
+const refreshBtn = document.createElement("button");
+refreshBtn.type = "button";
+refreshBtn.className = "refresh-btn";
+refreshBtn.textContent = "обновить";
+refreshBtn.addEventListener("click", () => render());
+
 function applyThemeVars(theme: Theme): void {
   const root = document.documentElement;
   for (const [key, value] of Object.entries(theme.css)) {
@@ -118,7 +124,15 @@ function render(): void {
   const pixelCls = theme.css["--pixelated"] ? "pixelated" : "";
 
   app.className = `${themeCls} ${pixelCls}`.trim();
-  app.innerHTML = "";
+
+  let stack = app.querySelector<HTMLElement>(".no-stack");
+  if (!stack) {
+    stack = document.createElement("div");
+    stack.className = "no-stack";
+    app.appendChild(stack);
+  }
+
+  stack.querySelector(".no-card")?.remove();
 
   const card = document.createElement("div");
   card.className = `no-card ${layoutInnerClass(theme.layout)}`;
@@ -130,16 +144,12 @@ function render(): void {
   wrapper.innerHTML = buildPhraseHtml(phrase, theme);
   card.appendChild(wrapper.firstElementChild!);
 
-  app.appendChild(card);
-
-  let hint = document.querySelector(".refresh-hint") as HTMLElement | null;
-  if (!hint) {
-    hint = document.createElement("div");
-    hint.className = "refresh-hint";
-    hint.textContent = "↻ обнови";
-    document.body.appendChild(hint);
+  if (refreshBtn.parentElement === stack) {
+    stack.insertBefore(card, refreshBtn);
+  } else {
+    stack.appendChild(card);
+    stack.appendChild(refreshBtn);
   }
-  requestAnimationFrame(() => hint!.classList.add("visible"));
 
   void recordDecline().then(showDeclineCount);
 }

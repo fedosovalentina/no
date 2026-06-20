@@ -79,7 +79,7 @@ export const themes: Theme[] = [
       "--weight": "900",
       "--transform": "none",
       "--letter-spacing": "0.15em",
-      "--glow": "0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 80px #ff00ff",
+      "--glow": "0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff",
       "--text-shadow": "var(--glow)",
     },
   },
