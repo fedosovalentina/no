@@ -1,10 +1,12 @@
 import "./style.css";
-import { pickPhrase, type Phrase } from "./phrases";
+import { pickPhrase, pickRefreshLabel, applyPageCopy, copy } from "./locale";
+import type { Phrase } from "./phrase";
 import { pickTheme, loadFonts, type Theme, type AnimationId } from "./themes";
-import { pickRefreshLabel } from "./refresh-labels";
 import { recordDecline, showDeclineCount } from "./counter";
 
 const app = document.getElementById("app")!;
+
+applyPageCopy();
 
 const refreshBtn = document.createElement("button");
 refreshBtn.type = "button";
@@ -152,7 +154,7 @@ function render(): void {
   }
 
   refreshBtn.textContent = pickRefreshLabel();
-  refreshBtn.setAttribute("aria-label", "Попробовать ещё раз — новая фраза и дизайн");
+  refreshBtn.setAttribute("aria-label", copy.refreshAria);
 
   void recordDecline().then(showDeclineCount);
 }

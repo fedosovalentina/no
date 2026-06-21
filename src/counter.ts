@@ -1,3 +1,5 @@
+import { copy } from "./locale";
+
 export async function recordDecline(): Promise<number | null> {
   try {
     const res = await fetch("/api/declined", { method: "POST" });
@@ -12,5 +14,5 @@ export async function recordDecline(): Promise<number | null> {
 export function showDeclineCount(count: number | null): void {
   const el = document.getElementById("declined-count");
   if (!el) return;
-  el.textContent = count !== null ? count.toLocaleString("ru-RU") : "—";
+  el.textContent = count !== null ? count.toLocaleString(copy.numberLocale) : "—";
 }

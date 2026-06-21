@@ -1,14 +1,6 @@
-import { createDeckPicker } from "./shuffle-pick";
+import type { Phrase } from "./phrase";
 
-export interface Phrase {
-  text: string;
-  /** Optional subtitle or context line */
-  sub?: string;
-}
-
-function phraseKey(phrase: Phrase): string {
-  return `${phrase.text}\0${phrase.sub ?? ""}`;
-}
+export type { Phrase } from "./phrase";
 
 export const phrases: Phrase[] = [
   { text: "нет" },
@@ -128,9 +120,3 @@ export const phrases: Phrase[] = [
   { text: "0", sub: "это ни единички" },
   { text: "return false" },
 ];
-
-const pickUniquePhrase = createDeckPicker(phrases, phraseKey, "no:phrase-deck");
-
-export function pickPhrase(): Phrase {
-  return pickUniquePhrase();
-}

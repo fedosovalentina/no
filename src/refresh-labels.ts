@@ -1,6 +1,4 @@
-import { createDeckPicker } from "./shuffle-pick";
-
-export const refreshLabels: string[] = [
+export const refreshLabelsRu: string[] = [
   "А может быть всё-таки да?",
   "Попробуем ещё раз?",
   "Может повезёт?",
@@ -33,8 +31,35 @@ export const refreshLabels: string[] = [
   "Ещё одна попытка — точно да?",
 ];
 
-const pickUniqueLabel = createDeckPicker(refreshLabels, (label) => label, "no:refresh-deck");
-
-export function pickRefreshLabel(): string {
-  return pickUniqueLabel();
-}
+export const refreshLabelsEn: string[] = [
+  "Maybe it's yes this time?",
+  "Shall we try again?",
+  "Maybe we'll get lucky?",
+  "Maybe it's yes after all?",
+  "One more time?",
+  "Maybe this round?",
+  "Try again?",
+  "Another attempt?",
+  "Well, maybe…",
+  "What if it's yes now?",
+  "Could we get lucky?",
+  "Maybe this time?",
+  "Once more?",
+  "Maybe they'll change their mind?",
+  "Let's go again",
+  "How about another try?",
+  "Surely yes this time?",
+  "Maybe yes this round?",
+  "Another spin?",
+  "Again?",
+  "Maybe they'll agree now?",
+  "Maybe you'll reconsider?",
+  "Shall we try once more?",
+  "Maybe after all?",
+  "One more go?",
+  "Maybe luck's on our side?",
+  "What if it's yes after all?",
+  "One more try?",
+  "Maybe they'll say yes?",
+  "Another attempt — surely yes?",
+];
