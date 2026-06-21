@@ -1,8 +1,29 @@
-node_modules
-dist
-.DS_Store
-*.local
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# wrangler / cloudflare local dev (state, caches, bundled workers)
+.wrangler/
+.mf/
+
+# secrets — never commit
 .env
 .env.*
 !.env.example
 .dev.vars
+.dev.vars.*
+
+# vite
+*.local
+
+# os
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
