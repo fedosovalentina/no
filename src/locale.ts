@@ -3,20 +3,12 @@ import { phraseKey, type Phrase } from "./phrase";
 import { phrases as ruPhrases } from "./phrases";
 import { phrasesEn } from "./phrases-en";
 import { refreshLabelsRu, refreshLabelsEn } from "./refresh-labels";
+import { detectLocaleFromNavigator } from "./locale-detect";
 
 export type Locale = "ru" | "en";
 
 export function detectLocale(): Locale {
-  const langs = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language];
-
-  for (const lang of langs) {
-    const code = lang.toLowerCase();
-    if (code.startsWith("ru")) return "ru";
-  }
-
-  return "en";
+  return detectLocaleFromNavigator();
 }
 
 export const locale = detectLocale();
