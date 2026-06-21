@@ -89,7 +89,7 @@ body {
   text-align: center;
 }
 
-.no-card.layout-diagonal .phrase-block {
+.no-card.layout-diagonal .phrase-main {
   transform: rotate(-12deg);
 }
 
@@ -108,6 +108,11 @@ body {
 
 .no-card.layout-marquee-wrap {
   overflow: hidden;
+}
+
+.no-card.layout-marquee-wrap .phrase-block {
+  width: max-content;
+  max-width: none;
 }
 
 /* ── Phrase block ── */
@@ -381,22 +386,22 @@ body {
 }
 
 @keyframes slide-up {
-  from { transform: translateY(60px); opacity: 0; }
+  from { transform: translateY(50cqh); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slide-down {
-  from { transform: translateY(-60px); opacity: 0; }
+  from { transform: translateY(-50cqh); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slide-left {
-  from { transform: translateX(80px); opacity: 0; }
+  from { transform: translateX(55cqw); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slide-right {
-  from { transform: translateX(-80px); opacity: 0; }
+  from { transform: translateX(-55cqw); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
 
@@ -448,7 +453,7 @@ body {
 
 @keyframes marquee-scroll {
   from { transform: translateX(100cqw); }
-  to { transform: translateX(-100%); }
+  to { transform: translateX(calc(-100% - 100cqw)); }
 }
 
 @keyframes wave-letters {
@@ -513,6 +518,9 @@ body {
 
 .anim-scatter .char {
   display: inline-block;
+  --sx: calc((var(--i) % 5 - 2) * 18cqw);
+  --sy: calc((var(--i) % 3 - 1) * 14cqh);
+  --sr: calc((var(--i) % 7 - 3) * 12deg);
   animation: scatter-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: calc(var(--i) * 0.05s);
 }
@@ -561,19 +569,22 @@ body {
 
 /* Typewriter */
 .typewriter-wrap {
-  overflow: hidden;
-  border-right: none;
+  overflow: visible;
 }
 
 .typewriter-wrap .phrase-main {
+  display: inline-block;
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  animation: typewriter-reveal var(--tw-duration, 1.5s) steps(var(--tw-steps, 10)) both;
+  vertical-align: top;
+  clip-path: inset(0 100% 0 0);
+  animation: typewriter-reveal var(--tw-duration, 1.5s) steps(var(--tw-steps, 10), end) both;
 }
 
 @keyframes typewriter-reveal {
-  from { width: 0; }
-  to { width: 100%; }
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
 }
 
 .refresh-btn {
