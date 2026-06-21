@@ -17,4 +17,4 @@ id = "fe997a19770c469fa81cf4ef12862eb0"
 [assets]
 directory = "./dist"
 binding = "ASSETS"
-run_worker_first = ["/api/*", "/favicon.ico", "/favicon.svg", "/favicon-*", "/og", "/og.svg", "/og.jpg", "/og.png"]
+run_worker_first = ["/", "/api/*", "/favicon.ico", "/favicon.svg", "/favicon-*", "/og", "/og.svg", "/og.jpg", "/og.png"]
