@@ -161,7 +161,7 @@ export const themes: Theme[] = [
       "--weight": "300",
       "--transform": "none",
       "--letter-spacing": "0.02em",
-      "--sub-size": "1rem",
+      "--sub-size": "1.25rem",
     },
   },
   {
@@ -274,7 +274,7 @@ export const themes: Theme[] = [
       "--weight": "900",
       "--transform": "none",
       "--letter-spacing": "-0.02em",
-      "--sub-size": "0.875rem",
+      "--sub-size": "1.125rem",
     },
   },
   {
@@ -406,7 +406,7 @@ export const themes: Theme[] = [
       "--weight": "600",
       "--transform": "none",
       "--letter-spacing": "0",
-      "--sub-size": "0.875rem",
+      "--sub-size": "1.125rem",
     },
   },
   {
@@ -621,18 +621,48 @@ export function pickTheme(): Theme {
   return pickUniqueTheme();
 }
 
-export function loadFonts(theme: Theme): void {
+export function loadFonts(theme: Theme): Promise<void> {
   const families: string[] = [`family=${encodeURIComponent(theme.font)}:wght@${theme.fontWeights ?? "400"}`];
   if (theme.accentFont) {
     families.push(`family=${encodeURIComponent(theme.accentFont)}:wght@${theme.accentWeights ?? "400"}`);
   }
 
   const id = `gf-${theme.id}`;
-  if (document.getElementById(id)) return;
+  const primaryWeight = (theme.fontWeights ?? "400").split(";")[0]!;
+  const primarySpec = `${primaryWeight} 1em "${theme.font}"`;
 
-  const link = document.createElement("link");
-  link.id = id;
-  link.rel = "stylesheet";
-  link.href = `https://fonts.googleapis.com/css2?${families.join("&")}&display=swap`;
-  document.head.appendChild(link);
+  const loadStylesheet = (): Promise<void> =>
+    new Promise((resolve) => {
+      const existing = document.getElementById(id) as HTMLLinkElement | null;
+      if (existing) {
+        if (existing.sheet) resolve();
+        else existing.addEventListener("load", () => resolve(), { once: true });
+        return;
+      }
+
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = `https://fonts.googleapis.com/css2?${families.join("&")}&display=block`;
+      link.onload = () => resolve();
+      link.onerror = () => resolve();
+      document.head.appendChild(link);
+    });
+
+  const loadFace = async (spec: string): Promise<void> => {
+    if (!document.fonts?.load) return;
+    try {
+      await document.fonts.load(spec);
+    } catch {
+      /* network or missing glyph — fallback is fine */
+    }
+  };
+
+  return loadStylesheet().then(async () => {
+    await loadFace(primarySpec);
+    if (theme.accentFont) {
+      const accentWeight = (theme.accentWeights ?? "400").split(";")[0]!;
+      await loadFace(`${accentWeight} 1em "${theme.accentFont}"`);
+    }
+  });
 }

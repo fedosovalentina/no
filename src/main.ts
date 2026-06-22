@@ -11,7 +11,9 @@ applyPageCopy();
 const refreshBtn = document.createElement("button");
 refreshBtn.type = "button";
 refreshBtn.className = "refresh-btn";
-refreshBtn.addEventListener("click", () => render());
+refreshBtn.addEventListener("click", () => {
+  void render();
+});
 
 function applyThemeVars(theme: Theme): void {
   const root = document.documentElement;
@@ -112,11 +114,11 @@ function layoutInnerClass(layout: Theme["layout"]): string {
   return `layout-${layout}`;
 }
 
-function render(): void {
+async function render(): Promise<void> {
   const phrase = pickPhrase();
   const theme = pickTheme();
 
-  loadFonts(theme);
+  await loadFonts(theme);
   applyThemeVars(theme);
 
   document.title = phrase.text.slice(0, 30);
@@ -165,6 +167,6 @@ render();
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space" && !e.repeat) {
     e.preventDefault();
-    render();
+    void render();
   }
 });
